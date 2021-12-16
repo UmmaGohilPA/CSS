@@ -1084,3 +1084,22 @@ body {
 	animation: my-animation 10s ease-in-out 1s infinite forwards forwards running;
 }
 ```
+
+## Overflow
+
+overflow: visible (default)
+Without setting the property, overflow: visible is the default value for the web. This ensures that content is never unintentionally hidden and follows the core tenets of "never hide content" or "safe layouts of precise layouts".
+
+overflow: hidden
+With overflow: hidden content is clipped in the specified direction, and no scrollbars are provided to show it.
+
+overflow: scroll
+overflow: scroll enables scrollbars to allow users to scroll through content. Even if content isn't currently overflowing, scrollbars will be present. This is a great way to reduce future layout shift if a container may be scrollable in the future based, for example, on resize, and visually prepare the user for scrollable areas.
+
+overflow: clip
+Like overflow: hidden, the content with overflow: clip is clipped to the element's padding box. The difference between clip and hidden is that the clip keyword also forbids all scrolling, including programmatic scrolling.
+
+overflow: auto
+Finally, the value most commonly used, overflow: auto. This respects the user's preferences and shows scrollbars if needed, but hides them by default, and gives responsibility for scrolling to the user and browser.
+
+- scroll-behavior allows you to opt into browser-controlled scrolling to elements. This allows you to specify how in-page navigation like .scrollTo() or links are handled.
