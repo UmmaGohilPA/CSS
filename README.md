@@ -174,3 +174,559 @@ The order of specificity of these origins, from least specific, to most specific
 4. Authored !important. Any !important that you add to your authored declarations.
 5. Local user styles !important. Any !important that come from the operating system level, or browser extension level CSS.
 6. User agent !important. Any !important that are defined in the default CSS, provided by the browser.
+
+## Specificity
+
+- Each selector rule gets a scoring.
+
+- A universal selector (\*) has no specificity and gets 0 points.
+
+- An element (type) or pseudo-element selector gets 1 point of specificity .
+
+- A class, pseudo-class or attribute selector gets 10 points of specificity.
+
+- An ID selector gets 100 points of specificity, as long as you use an ID selector (#myID) and not an attribute selector ([id="myID"]).
+
+- CSS applied directly to the style attribute of the HTML element, gets a specificity score of 1,000 points. This means that in order to override it in CSS, you have to write an extremely specific selector.
+
+- Lastly, an !important at the end of a CSS value gets a specificity score of 10,000 points. This is the highest specificity that one individual item can get.
+
+## Inheritance
+
+- The color property is inheritable by other elements.
+
+- Properties that can be inherited cascade downwards, and child elements will get a computed value which represents its parent's value. This means that if a parent has font-weight set to bold all child elements will be bold, unless their font-weight is set to a different value, or the user agent stylesheet has a value for font-weight for that element.
+
+Example
+
+- You can make any property inherit its parent's computed value with the inherit keyword. A useful way to use this keyword is to create exceptions.
+
+```
+strong {
+  font-weight: 900;
+}
+```
+
+- This CSS snippet sets all <strong> elements to have a font-weight of 900, instead of the default bold value, which would be the equivalent of font-weight: 700.
+
+```
+.my-component {
+  font-weight: 500;
+}
+```
+
+- The .my-component class sets font-weight to 500 instead. To make the <strong> elements inside .my-component also font-weight: 500 add:
+
+```
+.my-component strong {
+  font-weight: inherit;
+}
+```
+
+- Now, the <strong> elements inside .my-component will have a font-weight of 500.
+
+- You could explicitly set this value, but if you use inherit and the CSS of .my-component changes in the future, you can guarantee that your <strong> will automatically stay up to date with it.
+
+### The initial Keyword
+
+- The initial keyword sets a property back to that initial, default value.
+
+- This snippet will remove the bold weight from all <strong> elements inside an <aside> element and instead, make them normal weight, which is the initial value.
+
+```
+// CSS
+
+aside strong {
+  font-weight: initial;
+}
+
+
+/* presentational styles */
+article > * + * {
+  margin-top: 1em;
+}
+
+//HTML
+
+<article>
+  <p><strong>I am a strong element that is bold because that is the inherited user agent style.</strong></p>
+  <aside>
+    <p><strong>I am a strong element but my font weight is normal because it is in an aside element.</strong></p>
+  </aside>
+</article>
+```
+
+### The unset Keyword
+
+- If a property is inheritable, the unset keyword will be the same as inherit. If the property is not inheritable, the unset keyword is equal to initial.
+
+- For example, color is inheritable, but margin isn't, so you can write this:
+
+```
+/* Global color styles for paragraph in authored CSS */
+p {
+  margin-top: 2em;
+  color: goldenrod;
+}
+
+/* The p needs to be reset in asides, so you can use unset */
+aside p {
+  margin: unset;
+  color: unset;
+}
+```
+
+- If you change the aside p rule to all: unset instead, it doesn't matter what global styles are applied to p in the future, they will always be unset.
+
+```
+aside p {
+	margin: unset;
+	color: unset;
+	all: unset;
+}
+```
+
+## Sizing Units
+
+- For this case, you can use a ch unit, which is equal to the width of a "0" character in the rendered font at its computed size. This unit allows you to limit the width of text with a unit that's designed to size text, which in turn, allows predictable control regardless of the size of that text. The ch unit is one of a handful of units that are helpful for specific contexts like this example.
+
+- It's a good idea to use a unitless value for line-height, rather than specifying a unit. As you learned in the inheritance module, font-size can be inherited. Defining a unitless line-height keeps the line-height relative to the font size. This provides a better experience than, say, line-height: 15px, which will not change and might look strange with certain font sizes.
+
+- When using a percentage in CSS you need to know how the percentage is calculated. For example,width is calculated as a percentage of the width of the parent element.
+
+```
+div {
+  width: 300px;
+  height: 100px;
+}
+
+div p {
+  width: 50%; /* calculated: 150px */
+}
+```
+
+- The transform property allows you alter an element's appearance and position by rotating, skewing, scaling and translating it. This can be done in a 2D and 3D space.
+
+- If you attach a unit to a number, it becomes a dimension. For example, 1rem is a dimension. In this context, the unit that is attached to a number is referred to in specifications as a dimension token. Lengths are dimensions that refer to distance and they can either be absolute or relative.
+
+- By sizing text with relative units like em or rem, rather than an absolute unit, like px, the size of your text can respond to user preferences. This can include the system font size or parent element's font size, such as the <body>. The base size of the em is the element's parent and the base size of the rem is the base font size of the document.
+
+- If you don't define a font-size on your html element, this user-preferred system font size will be honoured if you use relative lengths, such as em and rem. If you use px units for sizing text, this preference will be ignored.
+
+### Absolute Lengths
+
+- All absolute lengths resolve against the same base, making them predictable wherever they're used in your CSS.
+
+- Eg. cm, mm, in, px, pt (points)
+
+### Relative Lengths
+
+- A relative length is calculated against a base value, much like a percentage. The difference between these and percentages is that you can contextually size elements. This means that CSS has units such as ch that use the text size as a basis, and vw which is based on the width of the viewport (your browser window). Relative lengths are particularly useful on the web due to its responsive nature.
+
+- Eg. em, ex, ch, rem
+
+- em: Relative to the font size, i.e. 1.5em will be 50% larger than the base computed font size of its parent. (Historically, the height of the capital letter "M").
+
+- rem: Font size of the root element (default is 16px).
+
+### Viewport-relative Units
+
+- vw: 1% of viewport's width. People use this unit to do cool font tricks, like resizing a header font based on the width of the page so as the user resizes, the font will also resize.
+
+- vh: 1% of viewport's height. You can use this to arrange items in a UI, if you have a footer toolbar for example.
+
+- vmin: 1% of the viewport's smaller dimension.
+
+- vmax: 1% of the viewport's larger dimension.
+
+## Layout
+
+- The display property does two things. The first thing it does is determine if the box it is applied to acts as inline or block.
+
+- Inline elements behave like words in a sentence. They sit next to each other in the inline direction. Elements such as <span> and <strong>, which are typically used to style pieces of text within containing elements like a <p> (paragraph), are inline by default. They also preserve surrounding whitespace.
+
+```
+.my-element {
+  display: inline;
+}
+```
+
+- Block elements don't sit alongside each other. They create a new line for themselves. Unless changed by other CSS code, a block element will expand to the size of the inline dimension, therefore spanning the full width in a horizontal writing mode. The margin on all sides of a block element will be respected.
+
+```
+.my-element {
+	display: block;
+}
+```
+
+- Setting the display property to display: flex makes the box a block-level box, and also converts its children to flex items. This enables the flex properties that control alignment, ordering and flow.
+
+```
+.my-element {
+	display: flex;
+}
+```
+
+- Grid is similar in a lot of ways to flexbox, but it is designed to control multi-axis layouts instead of single-axis layouts (vertical or horizontal space).
+
+### Flow Layout
+
+- If not using grid or flexbox, your elements display in normal flow. There are a number of layout methods that you can use to adjust the behavior and position of items when in normal flow.
+
+- Using `inline-block` gives you a box that has some of the characteristics of a block-level element, but still flows inline with the text.
+
+- The float property instructs an element to "float" to the direction specified. The image in this example is instructed to float left, which then allows sibling elements to "wrap" around it. You can instruct an element to float left, right or inherit.
+
+- When you use float, keep in mind that any elements following the floated element may have their layout adjusted. To prevent this, you can clear the float, either by using clear: both on an element that follows your floated element or with display: flow-root on the parent of your floated elements.
+
+### Positioning
+
+- The position property changes how an element behaves in the normal flow of the document, and how it relates to other elements. The available options are relative, absolute, fixed and sticky with the default value being static.
+
+## Flexbox
+
+- The key to understanding flexbox is to understand the concept of a main axis and a cross axis. The main axis is the one set by your flex-direction property. If that is row your main axis is along the row, if it is column your main axis is along the column.
+
+- Flex items move as a group on the main axis. Remember: we've got a bunch of things and we are trying to get the best layout for them as a group.
+
+- The cross axis runs in the other direction to the main axis, so if flex-direction is row the cross axis runs along the column.
+
+- row: the items lay out as a row.
+
+- row-reverse: the items lay out as a row from the end of the flex container.
+
+- column: the items lay out as a column.
+
+- column-reverse : the items lay out as a column from the end of the flex container.
+
+- You should be cautious when using any properties that reorder the visual display away from how things are ordered in the HTML document, as it can negatively impact accessibility. The row-reverse and column-reverse values are a good example of this. The reordering only happens for the visual order, not the logical order. This is important to understand as the logical order is the order that a screen reader will read out the content, and anyone navigating using the keyboard will follow.
+
+- The initial value of the flex-wrap property is nowrap. This means that if there is not enough space in the container the items will overflow.
+
+- You can set the flex-direction and flex-wrap properties using the shorthand flex-flow. For example, to set flex-direction to column and allow items to wrap:
+
+```
+.container {
+  display: flex;
+  flex-flow: column wrap;
+}
+```
+
+- flex-grow: 0: items do not grow.
+
+- flex-shrink: 1: items can shrink smaller than their flex-basis.
+
+- flex-basis: auto: items have a base size of auto.
+
+- This can be represented by a keyword value of flex: initial. The flex shorthand property, or the longhands of flex-grow, flex-shrink and flex-basis are applied to the children of the flex container.
+
+- justify-content: space distribution on the main axis.
+
+- align-content: space distribution on the cross axis.
+
+- place-content: a shorthand for setting both of the above properties.
+
+- align-self: aligns a single item on the cross axis
+
+- align-items: aligns all of the items as a group on the cross axis
+
+- With the HTML used earlier, the flex items laid out as a row, there is space on the main axis. The items are not big enough to completely fill the flex container. The items line up at the start of the flex container because the initial value of justify-content is flex-start. The items line up at the start and any extra space is at the end. Add the justify-content property to the flex container, give it a value of flex-end, and the items line up at the end of the container and the spare space is placed at the start.
+
+```
+.container {
+  display: flex;
+  justify-content: flex-end;
+}
+```
+
+-For the justify-content property to do anything you have to have spare space in your container on the main axis. If your items fill the axis then there is no space to share out so the property won't do anything.
+
+## Grid
+
+- CSS Grid Layout provides a two dimensional layout system, controlling layout in rows and columns. In this module discover everything grid has to offer.
+
+- Grid is exceptionally useful at combining the control that extrinsic sizing provides with the flexibility of intrinsic sizing, which makes it ideal for this sort of layout. This is because grid is a layout method designed for two-dimensional content. That is, laying things out in rows and columns at the same time.
+
+- A grid can be defined with rows and columns. You can choose how to size these row and column tracks or they can react to the size of the content.
+
+- Direct children of the grid container will be automatically placed onto this grid.
+
+- Or, you can place the items in the precise location that you want.
+
+- Lines and areas on the grid can be named to make placement easier.
+
+- Spare space in the grid container can be distributed between the tracks.
+
+- Grid items can be aligned within their area.
+
+- A grid is made up of lines, which run horizontally and vertically. If your grid has four columns, it will have five column lines including the one after the last column.
+
+- A track is the space between two grid lines. A row track is between two row lines and a column track between two column lines. When we create our grid we create these tracks by assigning a size to them.
+
+- A grid cell is the smallest space on a grid defined by the intersection of row and column tracks. It's just like a table cell or a cell in a spreadsheet. If you define a grid and don't place any of the items they will automatically be laid out one item into each defined grid cell.
+
+- Several grid cells together. Grid areas are created by causing an item to span over multiple tracks.
+
+- A gutter or alley between tracks. For sizing purposes these act like a regular track. You can't place content into a gap but you can span grid items across it.
+
+- The min-content keyword will make a track as small as it can be without the track content overflowing. Changing the example grid layout to have three column tracks all at min-content size will mean they become as narrow as the longest word in the track.
+
+- The max-content keyword has the opposite effect. The track will become as wide enough for all of the content to display in one long unbroken string. This might cause overflows as the string will not wrap.
+
+- The fit-content() function acts like max-content at first. However, once the track reaches the size that you pass into the function, the content starts to wrap. So fit-content(10em) will create a track that is less than 10em, if the max-content size is less than 10em, but never larger than 10em.'
+
+- The fr unit works in a similar way to using flex: auto in flexbox. It distributes space after the items have been laid out. Therefore to have three columns which all get the same share of available space:
+
+```
+.container {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0,1fr));
+}
+```
+
+```
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 200px 100px);
+}
+
+.item {
+    grid-column-start: 1; /* start at column line 1 */
+    grid-column-end: 4; /* end at column line 4 */
+    grid-row-start: 2; /*start at row line 2 */
+    grid-row-end: 4; /* end at row line 4 */
+}
+```
+
+```
+header {
+    grid-area: header;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.content {
+    grid-area: content;
+}
+
+footer {
+    grid-area: footer;
+}
+```
+
+```
+.container {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-areas:
+        "header header header header"
+        "sidebar content content content"
+        "sidebar footer footer footer";
+}
+```
+
+## Logical Properties
+
+- Logical, flow relative properties and values are linked to the flow of text, rather than the physical shape of the screen.
+
+- Block flow is the direction in which content blocks are placed. For example, if there are two paragraphs, the block flow is where the second paragraph will go. In an English document, the block flow is top-to-bottom. Think of this in the context of paragraphs of text following each other, top-to-bottom.
+
+- The inline flow is how text flows in a sentence. In an English document the inline flow is left to right. If you were to change the document language of your webpage to Arabic (<html lang="ar">), then the inline flow would be right-to-left.
+
+- The flow-relative equivalents are max-inline-size and max-block-size. You can also use min-block-size and min-inline-size instead of min-height and min-width.
+
+- Logical properties for margin, padding and inset make positioning elements, and determining how these elements interact with each other across writing modes easier and more efficient. The margin and padding related properties are still direct mappings to directions, but the key difference is that when a writing mode changes, they change with it.
+
+- The inset-block property isn't the only shorthand option with logical properties. This rule can be further condensed, using shorthand versions of the margin and padding properties.
+
+```
+p svg {
+  width: 1.2em;
+  height: 1.2em;
+  margin-inline-end: 0.5em; //changed
+  flex
+```
+
+## Spacing
+
+- If you use a <br> element, it will create a line-break, just like if you were to press your enter key in a word processor.
+
+- The <hr> creates a horizontal line with space either-side, known as margin.
+
+- If you want to add space to the outside of an element, you use the margin property.
+
+- If you make an element absolutely positioned, using position: absolute, the margin will no longer collapse. The margin also won't collapse if you use the float property, too.
+
+- If you have an element with no margin between two elements with block margin, the margin won't collapse either, because the two elements with block margin are no longer adjacent siblings: they are just siblings.
+
+- An element with position: relative will maintain its place in the document flow, even when you set these values. They will be relative to your element's position too.
+
+- An element with position: absolute will base the directional values from the relative parent's position.
+
+- An element with position: fixed will base the directional values on the viewport.
+
+- An element with position: sticky will only apply the directional values when it is in its docked/stuck state.
+
+## Pseudo-elements
+
+- A pseudo-element is like adding or targeting an extra element without having to add more HTML
+
+```
+p::first-letter {
+  color: blue;
+  float: left;
+  font-size: 2.6em;
+  font-weight: bold;
+  line-height: 1;
+  margin-inline-end: 0.2rem;
+}
+```
+
+- Both the ::before and ::after pseudo-elements create a child element inside an element only if you define a content property.
+
+```
+.my-element::before {
+	content: "";
+}
+
+.my-element::after {
+	content: "";
+}
+```
+
+- input[type="checkbox"] is an exception. It is allowed to have pseudo-element children.
+
+### ::first-letter / ::first-line
+
+- color
+
+- background properties
+
+- border
+
+- float
+
+- font
+
+- text properties
+
+- ::first-line applied has a display value of block, inline-block, list-item, table-caption or table-cell.
+
+- If you have an element that is presented in full screen mode, such as a <dialog> or a <video>, you can style the backdrop—the space between the element and the rest of the page—with the ::backdrop pseudo-element:
+
+- The ::marker pseudo-element lets you style the bullet or number for a list item or the arrow of a <summary> element.
+
+- The ::selection pseudo-element allows you to style how selected text looks.
+
+- You can add a helper hint to form elements, such as <input> with a placeholder attribute. The ::placeholder pseudo-element allows you to style that text.
+
+- The ::placeholder only supports a subset of CSS rules:
+  - color
+  - background properties
+  - font properties
+  - text properties
+
+## Pseudo-classes
+
+- Pseudo-classes let you apply CSS based on state changes
+
+- Say you've got an email sign up form, and you want the email form field to have a red border if it contains an invalid email address. How do you do that? You can use an :invalid CSS pseudo-class, which is one of many browser-provided pseudo-classes.
+
+- :hover, :active,:focus, :focus-within, :focus-visible, :target, :link, :visited, :disabled, :enabled, :checked, :indeterminate, :valid, :invalid, :empty, :not
+
+- first-child, last-child, only-child, nth-child, nth-of-type
+
+## Shadows
+
+- The box-shadow property is for adding shadows to the box of an HTML element. It works on block elements and inline elements.
+
+```
+.my-element {
+	box-shadow: 5px 5px 20px 5px #000;
+}
+```
+
+- Horizontal offset: a positive number pushes it out from the left and a negative number will push it out from the right.
+
+- Vertical offset: a positive number pushes it down from the top, and a negative number will push it up from the bottom.
+
+- Blur radius: a larger number produces a more blurred shadow, whereas a small number produces a sharper shadow.
+
+- Spread radius (optional): a larger number increases the size of the shadow and a smaller number decreases it, making it the same size as the blur radius if it's set to 0.
+
+- Color: Any valid color value. If this isn't defined, the computed text color will be used.
+
+```
+/* Outer shadow */
+.my-element {
+	box-shadow: 5px 5px 20px 5px #000;
+}
+
+/* Inner shadow */
+.my-element {
+	box-shadow: inset 5px 5px 20px 5px #000;
+}
+```
+
+- You can add as many shadows as you like with text-shadow, just as with box-shadow. Add a comma separated collection of value sets, and you can create some really cool text effects, such as 3D text.
+
+```
+// CSS
+.my-element {
+  text-shadow: 1px 1px 0px white,
+    2px 2px 0px firebrick;
+  color: darkslategray;
+}
+
+body {
+  background: #f3f3f3;
+}
+
+/* Presentational styles */
+.my-element {
+  --flow-space: 2rem;
+  font-size: 3em;
+  font-weight: 900;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase;
+  line-height: 1.1;
+  max-width: 40ch;
+}
+
+
+// HTML
+<h1 class="my-element">
+  Multiple text shadows are cool
+</h1>
+```
+
+- To achieve a drop shadow that follows any potential curves of an image, use the CSS drop-shadow filter. This shadow is applied to an alpha mask which makes it very useful for adding a shadow to a cutout image, as in the case in the intro of this module.
+
+```
+.my-image {
+  filter: drop-shadow(0px 0px 10px rgba(0 0 0 / 30%))
+}
+```
+
+- The drop-shadow filter has the same values as box-shadow but the inset keyword and spread value are not allowed. You can add as many shadows as you like, by adding multiple instances of drop-shadow values to the filter property. Each shadow will use the last shadow as a positioning reference point.
+
+## Focus
+
+- Focus styles assist people who use a device such as a keyboard or a switch control to navigate and interact with a website. If an element receives focus and there is no visual indication, a user may lose track of what is in focus. This can create navigation issues and result in unwanted behaviour if, say, the wrong link is followed. You can read more on focus and how to manage it in this guide.
+
+- You can typically navigate a website's focusable elements using the tab key to move forward on the page, and shift + tab to move backward.
+
+- There is also a HTML attribute called tabindex which allows you to change the tabbing index—which is order in which elements are focused—every time someone presses their tab key, or focus is shifted with a hash change in the URL or by a JavaScript event. If tabindex on a HTML element is set to 0, it can receive focus via the tab key and it will honour the global tab index, which is defined by the document source order.
+
+- Avoid using outline: none on an element that can receive keyboard focus
+
+- Avoid replacing outline styles with box-shadow as they don't show up in Windows High Contrast Mode
+
+- Only set a positive value for tabindex on an HTML element if you absolutely have to
+
+- Make sure the focus state is very clear vs the default state
+
+## Z-index and Stacking Context
