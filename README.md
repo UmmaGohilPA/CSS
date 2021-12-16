@@ -730,3 +730,357 @@ body {
 - Make sure the focus state is very clear vs the default state
 
 ## Z-index and Stacking Context
+
+- The z-index property explicitly sets a layer order for HTML based on the 3D space of the browser—the Z axis. This is the axis which shows which layers are closer to and further from you. The vertical axis on the web is the Y axis and the horizontal axis is the X axis.
+
+Example
+
+```
+// HTML
+<main>
+  <div class="wrapper">
+    <article class="flow">
+      <h1>Default <code>z-index</code> behaviour</h1>
+      <figure class="callout">
+        <p>
+          If no value for <code>z-index</code> is set, the browser will use the
+          document source order to dictate <code>z-index</code> instead.
+        </p>
+        <p>
+          This demo has 3 empty <code>&lt;div&gt;</code> elements, with negative
+          margin, making them overlap. The later elements sit on top of the earlier
+          elements.
+        </p>
+      </figure>
+      <div class="demo">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </div>
+    </article>
+  </div>
+</main>
+
+// CSS
+.demo > * {
+  width: 250px;
+  height: 200px;
+}
+
+.demo > * + * {
+  margin-top: -150px;
+  opacity: 0.8;
+  box-shadow: 0 -1px 10px rgba(0 0 0 / 60%);
+}
+
+.demo > :first-child {
+  background: aliceblue;
+  border: 2px solid lightblue;
+}
+
+.demo > :nth-child(2) {
+  background: pink;
+  border: 2px solid hotpink;
+}
+
+.demo > :last-child {
+  background: wheat;
+  border: 2px solid gold;
+}
+```
+
+- To set an element behind another element, add a negative value for z-index.
+
+Example
+
+```
+// HTML
+<div class="my-element">
+  <div class="child">I am on top of my parent</div>
+</div>
+
+// CSS
+.my-element {
+  position: relative;
+  z-index: 0;
+
+	background: rgb(232 240 254 / 0.5);
+  border: 1px solid lightblue;
+}
+
+.my-element .child {
+	position: relative;
+	z-index: -1;
+
+  background: pink;
+  border: 1px solid hotpink;
+  padding: 1rem;
+  width: 275px;
+}
+
+
+/* Decorative styles */
+.my-element {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 250px;
+}
+
+.child {
+  font-weight: bold;
+}
+```
+
+- Because .my-element now has a position value that's not static and a z-index value that's not auto, it has created a new stacking context. This means that even if you set .child to have a z-index of -999, it would still not sit behind .my-parent.
+
+- A stacking context is a group of elements that have a common parent and move up and down the z axis together.
+
+- You don't need to apply z-index and position to create a new stacking context. You can create a new stacking context by adding a value for properties which create a new composite layer such as opacity, will-change and transform.
+
+- You can also create a stacking context by adding a filter and setting `backface-visibility: hidden`.
+
+## Functions
+
+- Functional selectors example:
+
+```
+.post :is(h1, h2, h3) {
+	line-height: 1.2;
+}
+```
+
+- The var() function takes one required argument: the custom property that you are trying to return as a value. In the above snippet, the var() function has --base-color passed as an argument. If --base-color is defined, then var() will return the value.
+
+Example
+
+```
+.my-element {
+	background: var(--base-color, hotpink);
+}
+```
+
+- The calc() function takes a single mathematical expression as its parameter. This mathematical expression can be a mix of types, such as length, number, angle and frequency. Units can be mixed too.
+
+Examples
+
+```
+.my-element {
+	width: calc(100% - 2rem);
+}
+```
+
+```
+:root {
+  --root-height: 5rem;
+}
+
+.my-element {
+  width: calc(calc(10% + 2rem) * 2);
+  height: calc(var(--root-height) * 3);
+}
+```
+
+- The min() function returns the smallest computed value of the one or more passed arguments. The max() function does the opposite: get the largest value of the one or more passed arguments.
+
+Example
+
+```
+.my-element {
+  width: min(20vw, 30rem);
+  height: max(20vh, 20rem);
+}
+```
+
+- The clamp() function takes three arguments: the minimum size, the ideal size and the maximum.
+
+Example
+
+```
+h1 {
+  font-size: clamp(2rem, 1rem + 3vw, 3rem);
+}
+```
+
+- In this example, the font-size will be fluid based on the width of the viewport. The vw unit is added to a rem unit to assist with screen zooming, because regardless of zoom level a vw unit will be the same size. Multiplying by a rem unit—based on the root font size— provides the clamp() function with a relative calculation point.
+
+## Gradients
+
+- The linear-gradient() function generates an image of two or more colors, progressively. It takes multiple arguments, but in its simplest configuration, you can pass some colors like this and it will automatically split them evenly, while blending them.
+
+```
+.my-element {
+	background: linear-gradient(black, white);
+}
+```
+
+- To create a gradient that radiates in a circular fashion, the radial-gradient() function steps in to help. It's similar to linear-gradient(), but instead of specifying an angle, you optionally specify a position and ending shape. If you just specify colors, the radial-gradient() will auto-select the position as center and select either a circle or ellipse, depending on the size of the box.
+
+```
+.my-element {
+	background: radial-gradient(white, black);
+}
+```
+
+- A conic gradient has a center point in your box and starts from the top (by default), and goes around in a 360 degree circle.
+
+```
+.my-element {
+	background: conic-gradient(white, black);
+}
+```
+
+### Mixing Gradients
+
+```
+// CSS
+.my-element {
+	background: linear-gradient(-45deg, blue -30%, transparent 80%), linear-gradient(45deg, darkred 20%, crimson, darkorange 60%, gold, bisque);
+}
+
+/* Presentational styles */
+.my-element {
+  width: 250px;
+  height: 250px;
+}
+
+// HTML
+<div class="my-element"></div>
+```
+
+## Animations
+
+```
+@keyframes my-animation {
+	from {
+		transform: translateY(20px);
+	}
+	to {
+		transform: translateY(0px);
+	}
+}
+```
+
+Full example
+
+```
+// CSS
+.pulser {
+  width: 30px;
+  height: 30px;
+  background: rebeccapurple;
+  border-radius: 50%;
+  position: relative;
+}
+
+.pulser::after {
+  animation: pulse 1000ms cubic-bezier(0.9, 0.7, 0.5, 0.9) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.4;
+  }
+}
+
+.pulser::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: blueviolet;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Decorative styles */
+body {
+  display: grid;
+  place-items: center;
+}
+
+// HTML
+<div class="pulser"></div>
+```
+
+- The animation-duration property defines how long the @keyframes timeline should be. It should be a time value. It defaults to 0 seconds, which means the animation still runs, but it'll be too quick for you to see. You can't add negative time values.
+
+```
+.my-element {
+	animation-duration: 10s;
+}
+```
+
+- To help recreate natural motion in animation, you can use timing functions that calculate the speed of an animation at each point. Calculated values are often curved, making the animation run at variable speeds over the course of animation-duration, and if a value is calculated beyond that of the value defined in @keyframes, make the element appear to bounce.
+
+```
+.my-element {
+	animation-timing-function: ease-in-out;
+}
+```
+
+- The animation-iteration-count property defines how many times the @keyframes timeline should run. By default, this is 1, which means that when the animation reaches the end of your timeline, it will stop at the end. The number can't be a negative number.
+
+```
+.my-element {
+	animation-iteration-count: 10;
+}
+```
+
+- You can use the infinite keyword which will loop your animation
+
+- normal: the default value, which is forwards.
+
+- reverse: runs backwards over your timeline.
+
+- alternate: for each animation iteration, the timeline will run forwards or backwards in sequence.
+
+- alternate-reverse: the reverse of alternate.
+
+- The animation-play-state property allows you to play and pause the animation. The default value is running and if you set it to paused, it will pause the animation.
+
+```
+.my-element:hover {
+	animation-play-state: paused;
+}
+```
+
+- The animation-fill-mode property defines which values in your @keyframes timeline persist before the animation starts or after it ends. The default value is none which means when the animation is complete, the values in your timeline are discarded. Other options are:
+
+- forwards: The last keyframe will persist, based on the animation direction.
+
+- backwards: The first keyframe will persist, based on the animation direction.
+
+- both: follows the rules for both forwards and backwards.
+
+- Instead of defining all the properties separately, you can define them in an animation shorthand, which lets you define the animation properties in the following order:
+
+  1. animation-name
+
+  2. animation-duration
+
+  3. animation-timing-function
+
+  4. animation-delay
+
+  5. animation-iteration-count
+
+  6. animation-direction
+
+  7. animation-fill-mode
+
+  8. animation-play-state
+
+```
+.my-element {
+	animation: my-animation 10s ease-in-out 1s infinite forwards forwards running;
+}
+```
