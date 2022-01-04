@@ -1,6 +1,7 @@
 # web.dev/learn/css
 
-## Box Model
+<details>
+<summary>Box Model</summary>
 
 - Boxes have different behavior based on their display value, their set dimensions, and the content that lives within them. You can control this by using extrinsic sizing, or, you can continue to let the browser make decisions for you based on the content size, using intrinsic sizing.
 
@@ -49,7 +50,10 @@ Example
 
 - Having content-box as the value of box-sizing means that when you set dimensions, such as a width and height, they will be applied to the content box. If you then set padding and border, these values will be added to the content box's size.
 
-## Selectors
+</details>
+
+<details>
+  <summary>Selectors</summary>
 
 - A universal selector—also known as a wildcard—matches any element.
 
@@ -132,7 +136,10 @@ a.my-class {
 }
 ```
 
-## The cascade
+</details>
+
+<details>
+  <summary>The cascade</summary>
 
 CSS stands for Cascading Stylesheets. The cascade is the algorithm for solving conflicts where multiple CSS rules apply to an HTML element.
 
@@ -174,8 +181,10 @@ The order of specificity of these origins, from least specific, to most specific
 4. Authored !important. Any !important that you add to your authored declarations.
 5. Local user styles !important. Any !important that come from the operating system level, or browser extension level CSS.
 6. User agent !important. Any !important that are defined in the default CSS, provided by the browser.
+</details>
 
-## Specificity
+<details>
+  <summary>Specificity</summary>
 
 - Each selector rule gets a scoring.
 
@@ -190,8 +199,10 @@ The order of specificity of these origins, from least specific, to most specific
 - CSS applied directly to the style attribute of the HTML element, gets a specificity score of 1,000 points. This means that in order to override it in CSS, you have to write an extremely specific selector.
 
 - Lastly, an !important at the end of a CSS value gets a specificity score of 10,000 points. This is the highest specificity that one individual item can get.
+</details>
 
-## Inheritance
+<details>
+  <summary>Inheritance</summary>
 
 - The color property is inheritable by other elements.
 
@@ -225,9 +236,11 @@ strong {
 
 - Now, the < strong > elements inside .my-component will have a font-weight of 500.
 
-- You could explicitly set this value, but if you use inherit and the CSS of .my-component changes in the future, you can guarantee that your < strong > will automatically stay up to date with it.
+- You could explicitly set this value, but if you use inherit and the CSS of .my-component changes in the future, you can guarantee that your <details strong > will automatically stay up to date with it.
+</details>
 
-### The initial Keyword
+<details>
+  <summary>The initial Keyword</summary>
 
 - The initial keyword sets a property back to that initial, default value.
 
@@ -256,7 +269,10 @@ article > * + * {
 </article>
 ```
 
-### The unset Keyword
+</details>
+
+<details>
+  <summary>The unset Keyword</summary>
 
 - If a property is inheritable, the unset keyword will be the same as inherit. If the property is not inheritable, the unset keyword is equal to initial.
 
@@ -286,7 +302,10 @@ aside p {
 }
 ```
 
-## Sizing Units
+</details>
+
+<details>
+  <summary>Sizing Units</summary>
 
 - For this case, you can use a ch unit, which is equal to the width of a "0" character in the rendered font at its computed size. This unit allows you to limit the width of text with a unit that's designed to size text, which in turn, allows predictable control regardless of the size of that text. The ch unit is one of a handful of units that are helpful for specific contexts like this example.
 
@@ -338,8 +357,10 @@ div p {
 - vmin: 1% of the viewport's smaller dimension.
 
 - vmax: 1% of the viewport's larger dimension.
+</details>
 
-## Layout
+<details>
+<summary>Layout</summary>
 
 - The display property does two things. The first thing it does is determine if the box it is applied to acts as inline or block.
 
@@ -382,8 +403,10 @@ div p {
 ### Positioning
 
 - The position property changes how an element behaves in the normal flow of the document, and how it relates to other elements. The available options are relative, absolute, fixed and sticky with the default value being static.
+</details>
 
-## Flexbox
+<details>
+<summary>Flexbox</summary>
 
 - The key to understanding flexbox is to understand the concept of a main axis and a cross axis. The main axis is the one set by your flex-direction property. If that is row your main axis is along the row, if it is column your main axis is along the column.
 
@@ -441,7 +464,10 @@ div p {
 
 -For the justify-content property to do anything you have to have spare space in your container on the main axis. If your items fill the axis then there is no space to share out so the property won't do anything.
 
-## Grid
+</details>
+
+<details>
+<summary>Grid</summary>
 
 - CSS Grid Layout provides a two dimensional layout system, controlling layout in rows and columns. In this module discover everything grid has to offer.
 
@@ -528,7 +554,10 @@ footer {
 }
 ```
 
-## Logical Properties
+</details>
+
+<details>
+<summary>Logical Properties</summary>
 
 - Logical, flow relative properties and values are linked to the flow of text, rather than the physical shape of the screen.
 
@@ -550,7 +579,9 @@ p svg {
   flex
 ```
 
-## Spacing
+</details>
+<details>
+<summary>Spacing</summary>
 
 - If you use a < br > element, it will create a line-break, just like if you were to press your enter key in a word processor.
 
@@ -569,8 +600,10 @@ p svg {
 - An element with position: fixed will base the directional values on the viewport.
 
 - An element with position: sticky will only apply the directional values when it is in its docked/stuck state.
+</details>
 
-## Pseudo-elements
+<details>
+<summary>Pseudo-elements</summary>
 
 - A pseudo-element is like adding or targeting an extra element without having to add more HTML
 
@@ -628,8 +661,10 @@ p::first-letter {
   - background properties
   - font properties
   - text properties
+  </details>
 
-## Pseudo-classes
+<details>
+<summary>Pseudo-classes</summary>
 
 - Pseudo-classes let you apply CSS based on state changes
 
@@ -638,8 +673,10 @@ p::first-letter {
 - :hover, :active,:focus, :focus-within, :focus-visible, :target, :link, :visited, :disabled, :enabled, :checked, :indeterminate, :valid, :invalid, :empty, :not
 
 - first-child, last-child, only-child, nth-child, nth-of-type
+</details>
 
-## Shadows
+<details>
+<summary>Shadows</summary>
 
 - The box-shadow property is for adding shadows to the box of an HTML element. It works on block elements and inline elements.
 
@@ -712,8 +749,10 @@ body {
 ```
 
 - The drop-shadow filter has the same values as box-shadow but the inset keyword and spread value are not allowed. You can add as many shadows as you like, by adding multiple instances of drop-shadow values to the filter property. Each shadow will use the last shadow as a positioning reference point.
+</details>
 
-## Focus
+<details>
+<summary>Focus</summary>
 
 - Focus styles assist people who use a device such as a keyboard or a switch control to navigate and interact with a website. If an element receives focus and there is no visual indication, a user may lose track of what is in focus. This can create navigation issues and result in unwanted behaviour if, say, the wrong link is followed. You can read more on focus and how to manage it in this guide.
 
@@ -728,8 +767,10 @@ body {
 - Only set a positive value for tabindex on an HTML element if you absolutely have to
 
 - Make sure the focus state is very clear vs the default state
+</details>
 
-## Z-index and Stacking Context
+<details>
+<summary>Z-index and Stacking Context</summary>
 
 - The z-index property explicitly sets a layer order for HTML based on the 3D space of the browser—the Z axis. This is the axis which shows which layers are closer to and further from you. The vertical axis on the web is the Y axis and the horizontal axis is the X axis.
 
@@ -841,8 +882,10 @@ Example
 - You don't need to apply z-index and position to create a new stacking context. You can create a new stacking context by adding a value for properties which create a new composite layer such as opacity, will-change and transform.
 
 - You can also create a stacking context by adding a filter and setting `backface-visibility: hidden`.
+</details>
 
-## Functions
+<details>
+<summary>Functions</summary>
 
 - Functional selectors example:
 
@@ -905,8 +948,10 @@ h1 {
 ```
 
 - In this example, the font-size will be fluid based on the width of the viewport. The vw unit is added to a rem unit to assist with screen zooming, because regardless of zoom level a vw unit will be the same size. Multiplying by a rem unit—based on the root font size— provides the clamp() function with a relative calculation point.
+</details>
 
-## Gradients
+<details>
+<summary>Gradients</summary>
 
 - The linear-gradient() function generates an image of two or more colors, progressively. It takes multiple arguments, but in its simplest configuration, you can pass some colors like this and it will automatically split them evenly, while blending them.
 
@@ -950,7 +995,10 @@ h1 {
 <div class="my-element"></div>
 ```
 
-## Animations
+</details>
+
+<details>
+<summary>Animations</summary>
 
 ```
 @keyframes my-animation {
@@ -1085,7 +1133,10 @@ body {
 }
 ```
 
-## Overflow
+</details>
+
+<details>
+<summary>Overflow</summary>
 
 overflow: visible (default)
 Without setting the property, overflow: visible is the default value for the web. This ensures that content is never unintentionally hidden and follows the core tenets of "never hide content" or "safe layouts of precise layouts".
@@ -1103,3 +1154,4 @@ overflow: auto
 Finally, the value most commonly used, overflow: auto. This respects the user's preferences and shows scrollbars if needed, but hides them by default, and gives responsibility for scrolling to the user and browser.
 
 - scroll-behavior allows you to opt into browser-controlled scrolling to elements. This allows you to specify how in-page navigation like .scrollTo() or links are handled.
+</details>
