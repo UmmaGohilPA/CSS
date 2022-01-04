@@ -236,8 +236,8 @@ strong {
 
 - Now, the < strong > elements inside .my-component will have a font-weight of 500.
 
-- You could explicitly set this value, but if you use inherit and the CSS of .my-component changes in the future, you can guarantee that your < strong > will automatically stay up to date with it.
-
+- You could explicitly set this value, but if you use inherit and the CSS of .my-component changes in the future, you can guarantee that your <details strong > will automatically stay up to date with it.
+</details>
 <details>
   <summary>The initial Keyword</summary>
 
