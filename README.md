@@ -207,7 +207,7 @@ strong {
 }
 ```
 
-- This CSS snippet sets all <strong> elements to have a font-weight of 900, instead of the default bold value, which would be the equivalent of font-weight: 700.
+- This CSS snippet sets all < strong > elements to have a font-weight of 900, instead of the default bold value, which would be the equivalent of font-weight: 700.
 
 ```
 .my-component {
