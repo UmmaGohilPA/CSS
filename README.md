@@ -215,7 +215,7 @@ strong {
 }
 ```
 
-- The .my-component class sets font-weight to 500 instead. To make the <strong> elements inside .my-component also font-weight: 500 add:
+- The .my-component class sets font-weight to 500 instead. To make the < strong > elements inside .my-component also font-weight: 500 add:
 
 ```
 .my-component strong {
@@ -223,15 +223,15 @@ strong {
 }
 ```
 
-- Now, the <strong> elements inside .my-component will have a font-weight of 500.
+- Now, the < strong > elements inside .my-component will have a font-weight of 500.
 
-- You could explicitly set this value, but if you use inherit and the CSS of .my-component changes in the future, you can guarantee that your <strong> will automatically stay up to date with it.
+- You could explicitly set this value, but if you use inherit and the CSS of .my-component changes in the future, you can guarantee that your < strong > will automatically stay up to date with it.
 
 ### The initial Keyword
 
 - The initial keyword sets a property back to that initial, default value.
 
-- This snippet will remove the bold weight from all <strong> elements inside an <aside> element and instead, make them normal weight, which is the initial value.
+- This snippet will remove the bold weight from all < strong > elements inside an < aside > element and instead, make them normal weight, which is the initial value.
 
 ```
 // CSS
@@ -309,7 +309,7 @@ div p {
 
 - If you attach a unit to a number, it becomes a dimension. For example, 1rem is a dimension. In this context, the unit that is attached to a number is referred to in specifications as a dimension token. Lengths are dimensions that refer to distance and they can either be absolute or relative.
 
-- By sizing text with relative units like em or rem, rather than an absolute unit, like px, the size of your text can respond to user preferences. This can include the system font size or parent element's font size, such as the <body>. The base size of the em is the element's parent and the base size of the rem is the base font size of the document.
+- By sizing text with relative units like em or rem, rather than an absolute unit, like px, the size of your text can respond to user preferences. This can include the system font size or parent element's font size, such as the < body >. The base size of the em is the element's parent and the base size of the rem is the base font size of the document.
 
 - If you don't define a font-size on your html element, this user-preferred system font size will be honoured if you use relative lengths, such as em and rem. If you use px units for sizing text, this preference will be ignored.
 
@@ -343,7 +343,7 @@ div p {
 
 - The display property does two things. The first thing it does is determine if the box it is applied to acts as inline or block.
 
-- Inline elements behave like words in a sentence. They sit next to each other in the inline direction. Elements such as <span> and <strong>, which are typically used to style pieces of text within containing elements like a <p> (paragraph), are inline by default. They also preserve surrounding whitespace.
+- Inline elements behave like words in a sentence. They sit next to each other in the inline direction. Elements such as < span > and < strong >, which are typically used to style pieces of text within containing elements like a < p > (paragraph), are inline by default. They also preserve surrounding whitespace.
 
 ```
 .my-element {
@@ -552,9 +552,9 @@ p svg {
 
 ## Spacing
 
-- If you use a <br> element, it will create a line-break, just like if you were to press your enter key in a word processor.
+- If you use a < br > element, it will create a line-break, just like if you were to press your enter key in a word processor.
 
-- The <hr> creates a horizontal line with space either-side, known as margin.
+- The < hr > creates a horizontal line with space either-side, known as margin.
 
 - If you want to add space to the outside of an element, you use the margin property.
 
@@ -615,13 +615,13 @@ p::first-letter {
 
 - ::first-line applied has a display value of block, inline-block, list-item, table-caption or table-cell.
 
-- If you have an element that is presented in full screen mode, such as a <dialog> or a <video>, you can style the backdrop—the space between the element and the rest of the page—with the ::backdrop pseudo-element:
+- If you have an element that is presented in full screen mode, such as a < dialog > or a < video >, you can style the backdrop—the space between the element and the rest of the page—with the ::backdrop pseudo-element:
 
-- The ::marker pseudo-element lets you style the bullet or number for a list item or the arrow of a <summary> element.
+- The ::marker pseudo-element lets you style the bullet or number for a list item or the arrow of a < summary > element.
 
 - The ::selection pseudo-element allows you to style how selected text looks.
 
-- You can add a helper hint to form elements, such as <input> with a placeholder attribute. The ::placeholder pseudo-element allows you to style that text.
+- You can add a helper hint to form elements, such as < input > with a placeholder attribute. The ::placeholder pseudo-element allows you to style that text.
 
 - The ::placeholder only supports a subset of CSS rules:
   - color
